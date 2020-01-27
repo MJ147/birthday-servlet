@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit;
         description = "Check how many days left to your birthday",
         urlPatterns = "/birthday"
 )
-public class Servlet extends HttpServlet {
+public class BirthdayServlet extends HttpServlet {
 
     String firstName;
     String secondName;
