@@ -41,8 +41,18 @@ public class BirthdayServlet extends HttpServlet {
                 birthDate = birthDate.plusYears(1);
             }
             String daysToBirthday = String.valueOf(ChronoUnit.DAYS.between(LocalDate.now(), birthDate));
-            birthdayInformation.append("your birthday is in ").append(daysToBirthday).append(" days.");
+            String s = checkIfIsOneDay(daysToBirthday);
+            birthdayInformation.append("your birthday is in ").append(daysToBirthday).append(" day").append(s).append(".");
         }
         return birthdayInformation.toString();
+    }
+
+    private String checkIfIsOneDay(String daysToBirthday) {
+
+        String s = "s";
+        if ("1".equals(daysToBirthday)) {
+            s = "";
+        }
+        return s;
     }
 }
