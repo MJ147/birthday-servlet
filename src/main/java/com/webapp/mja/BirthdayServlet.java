@@ -27,23 +27,23 @@ public class BirthdayServlet extends HttpServlet {
         secondName = req.getParameter("second_name");
         birthDate = LocalDate.parse(req.getParameter("birth_date")).withYear(LocalDate.now().getYear());
 
-        String birthInformation = checkBirthDate();
-        resp.getWriter().write(birthInformation);
+        String birthdayInformation = checkBirthDate();
+        resp.getWriter().write(birthdayInformation);
     }
 
     private String checkBirthDate() {
 
-        StringBuilder birthInformation = new StringBuilder("Hello " + firstName + " " + secondName + ", ");
+        StringBuilder birthdayInformation = new StringBuilder("Hello " + firstName + " " + secondName + ", ");
 
         if (LocalDate.now().equals(birthDate)) {
-            birthInformation.append("Happy Birthday!");
+            birthdayInformation.append("Happy Birthday!");
         } else {
             if (birthDate.isBefore(LocalDate.now())) {
                 birthDate = birthDate.plusYears(1);
             }
             String daysToBirthday = String.valueOf(ChronoUnit.DAYS.between(LocalDate.now(), birthDate));
-            birthInformation.append("your birthday is in " + daysToBirthday + " days.");
+            birthdayInformation.append("your birthday is in " + daysToBirthday + " days.");
         }
-        return birthInformation.toString();
+        return birthdayInformation.toString();
     }
 }
