@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 
 @WebServlet(
@@ -24,10 +25,19 @@ public class BirthdayServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         firstName = req.getParameter("first_name");
         secondName = req.getParameter("second_name");
-        birthDate = LocalDate.parse(req.getParameter("birth_date")).withYear(LocalDate.now().getYear());
 
-        String birthdayInformation = checkBirthDate();
-        resp.getWriter().write(birthdayInformation);
+        try {
+            birthDate = LocalDate.parse(req.getParameter("birth_date")).withYear(LocalDate.now().getYear());
+            String birthdayInformation = checkBirthDate();
+            resp.getWriter().write(birthdayInformation);
+        } catch (DateTimeParseException e) {
+            e.printStackTrace();
+            resp.getWriter().write("Wrong date format. Correct format is 'YYYY-MM-dd'");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            resp.getWriter().write("Enter birth date. Correct format is 'YYYY-MM-dd'");
+        }
+
     }
 
     private String checkBirthDate() {
