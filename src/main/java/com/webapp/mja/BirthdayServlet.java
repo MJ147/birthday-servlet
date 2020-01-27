@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 
 @WebServlet(
@@ -17,9 +16,9 @@ import java.time.temporal.ChronoUnit;
 )
 public class BirthdayServlet extends HttpServlet {
 
-    String firstName;
-    String secondName;
-    LocalDate birthDate;
+    private String firstName;
+    private String secondName;
+    private LocalDate birthDate;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,7 +41,7 @@ public class BirthdayServlet extends HttpServlet {
                 birthDate = birthDate.plusYears(1);
             }
             String daysToBirthday = String.valueOf(ChronoUnit.DAYS.between(LocalDate.now(), birthDate));
-            birthdayInformation.append("your birthday is in " + daysToBirthday + " days.");
+            birthdayInformation.append("your birthday is in ").append(daysToBirthday).append(" days.");
         }
         return birthdayInformation.toString();
     }
