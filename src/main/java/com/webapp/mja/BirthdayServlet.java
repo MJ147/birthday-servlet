@@ -26,6 +26,13 @@ public class BirthdayServlet extends HttpServlet {
         firstName = req.getParameter("first_name");
         secondName = req.getParameter("second_name");
         birthDate = LocalDate.parse(req.getParameter("birth_date")).withYear(LocalDate.now().getYear());
+
+        String birthInformation = checkBirthDate();
+        resp.getWriter().write(birthInformation);
+    }
+
+    private String checkBirthDate() {
+
         StringBuilder birthInformation = new StringBuilder("Hello " + firstName + " " + secondName + ", ");
 
         if (LocalDate.now().equals(birthDate)) {
@@ -37,6 +44,6 @@ public class BirthdayServlet extends HttpServlet {
             String daysToBirthday = String.valueOf(ChronoUnit.DAYS.between(LocalDate.now(), birthDate));
             birthInformation.append("your birthday is in " + daysToBirthday + " days.");
         }
-        resp.getWriter().write(birthInformation.toString());
+        return birthInformation.toString();
     }
 }
